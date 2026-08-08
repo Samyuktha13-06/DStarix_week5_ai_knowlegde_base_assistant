@@ -1,5 +1,8 @@
-from utils.llm import llm
+import json
+
 from utils.guardrails import guardrail_prompt
+from utils.llm import llm
+from utils.schema import AnswerResponse
 
 
 def generate_answer(question, documents):
@@ -18,4 +21,8 @@ def generate_answer(question, documents):
         }
     )
 
-    return response.content
+    data = json.loads(
+        response.content
+    )
+
+    return AnswerResponse(**data)

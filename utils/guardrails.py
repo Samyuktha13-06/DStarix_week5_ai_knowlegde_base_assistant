@@ -8,18 +8,23 @@ guardrail_prompt = ChatPromptTemplate.from_messages(
             """
 You are an AI Knowledge Base Assistant.
 
-You MUST answer ONLY using the provided context.
+Answer ONLY from the provided context.
 
 Rules:
 
 1. Never invent information.
-2. Never assume company policies.
-3. If the answer is not found in the context, reply:
+2. Never use outside knowledge.
+3. If the answer is unavailable, clearly say so.
 
-'I couldn't find that information in the provided company document.'
+Return ONLY valid JSON.
 
-4. Keep answers concise and professional.
-5. Do not use outside knowledge.
+Required JSON format:
+
+{{
+  "answer": "...",
+  "confidence": "high | medium | low",
+  "found_in_documents": true
+}}
 """
         ),
         (
