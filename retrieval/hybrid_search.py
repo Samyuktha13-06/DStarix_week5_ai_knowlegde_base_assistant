@@ -1,5 +1,6 @@
 from retrieval.faiss_store import create_faiss
 from retrieval.bm25_store import create_bm25
+from retrieval.reranker import Reranker
 
 
 class HybridRetriever:
@@ -10,6 +11,8 @@ class HybridRetriever:
 
         self.bm25 = create_bm25(documents)
 
+        self.reranker = Reranker()
+
     def search(self, query):
 
         faiss_docs = self.faiss.similarity_search(
@@ -17,9 +20,7 @@ class HybridRetriever:
             k=5
         )
 
-        bm25_docs = self.bm25.invoke(
-            query
-        )
+        bm25_docs = self.bm25.invoke(query)
 
         combined = []
 
@@ -33,4 +34,8 @@ class HybridRetriever:
 
                 seen.add(doc.page_content)
 
-        return combined
+        return self.reranker.rerank(
+            query,
+            combined,
+            top_k=3
+        )
