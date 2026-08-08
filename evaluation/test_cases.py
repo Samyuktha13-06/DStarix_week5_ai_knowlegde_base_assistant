@@ -1,27 +1,56 @@
 test_cases = [
 
     {
-        "question":
-        "What is the company's work from home policy?",
-
-        "expected_keywords":
-        ["remote", "work", "policy"]
+        "question": "How long is the internship?",
+        "expected_keywords": [
+            "3",
+            "month"
+        ]
     },
 
     {
-        "question":
-        "How many working hours per day?",
-
-        "expected_keywords":
-        ["hours"]
+        "question": "What are the working days?",
+        "expected_keywords": [
+            "monday",
+            "friday"
+        ]
     },
 
     {
-        "question":
-        "What is the dress code on Mars?",
+        "question": "Can interns use AI tools?",
+        "expected_keywords": [
+            "ai",
+            "chatgpt"
+        ]
+    },
 
-        "expected_keywords":
-        [
+    {
+        "question": "How will interns be evaluated?",
+        "expected_keywords": [
+            "timely",
+            "quality",
+            "learning"
+        ]
+    },
+
+    {
+        "question": "Do interns have fixed working hours?",
+        "expected_keywords": [
+            "flexible"
+        ]
+    },
+
+    {
+        "question": "Who should interns contact for technical questions?",
+        "expected_keywords": [
+            "mentor",
+            "mentor@dstarix.in"
+        ]
+    },
+
+    {
+        "question": "Is there a dress code for the Mars office?",
+        "expected_keywords": [
             "couldn't find",
             "company documents"
         ]
