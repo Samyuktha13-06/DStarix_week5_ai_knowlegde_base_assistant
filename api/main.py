@@ -2,7 +2,7 @@
 
 # pyrefly: ignore [missing-import]
 from fastapi import FastAPI, HTTPException
-
+from utils.query_rewriter import rewrite_query
 from loaders.document_loader import load_documents
 from retrieval.hybrid_search import HybridRetriever
 from utils.answer_generator import generate_answer
@@ -79,9 +79,18 @@ def ask_question(request: QuestionRequest):
             f"Received Question: {request.question}"
         )
 
-        # Retrieve relevant documents
+        original_question = request.question
+
+        transformed_question = rewrite_query(
+            original_question
+        )
+
+        logger.info(
+            f"Transformed query: {transformed_question}"
+        )
+
         docs = retriever.search(
-            request.question
+            transformed_question
         )
 
         logger.info(
@@ -105,7 +114,7 @@ def ask_question(request: QuestionRequest):
 
         # Generate answer
         response = generate_answer(
-            request.question,
+            original_question,
             docs
         )
 
